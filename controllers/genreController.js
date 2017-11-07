@@ -1,10 +1,11 @@
+//@ts-check
 var Genre = require('../models/genre');
 var Book = require('../models/book');
 
 var async = require('async');
 
 // Display list of all Genre
-exports.genre_list = function(req, res) {
+exports.genre_list = function(req, res, next) {
     Genre.find()
         .sort([['name', 'ascending']])
         .exec(function(err,list_genres){
@@ -14,7 +15,7 @@ exports.genre_list = function(req, res) {
 };
 
 // Display detail page for a specific Genre
-exports.genre_detail = function(req, res) {
+exports.genre_detail = function(req, res,next) {
   async.parallel({
     genre: function(callback) {  
       Genre.findById(req.params.id)
@@ -39,7 +40,7 @@ exports.genre_create_get = function(req, res) {
 };
 
 // Handle Genre create on POST
-exports.genre_create_post = function(req, res) {
+exports.genre_create_post = function(req, res,next) {
     
     //Check that the name field is not empty
     req.checkBody('name', 'Genre name required').notEmpty(); 

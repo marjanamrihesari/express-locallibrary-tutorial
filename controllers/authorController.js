@@ -1,9 +1,10 @@
+//@ts-check
 var Author = require('../models/author');
 var async = require('async');
 var Book = require('../models/book');
 
 // Display list of all Authors
-exports.author_list = function(req, res) {
+exports.author_list = function(req, res,next) {
     Author.find()
             .sort([['family_name' , 'ascending']])
             .exec(function(err,list_authors){
@@ -13,7 +14,7 @@ exports.author_list = function(req, res) {
 };
 
 // Display detail page for a specific Author
-exports.author_detail = function(req, res) {
+exports.author_detail = function(req, res, next) {
     async.parallel(
      {
         author:function(callback){

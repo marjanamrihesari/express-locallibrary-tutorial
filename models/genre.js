@@ -1,7 +1,8 @@
+//@ts-check
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var GenreSchema = Schema({
+var GenreSchema = new Schema({
     name:{type:String, require:true, minlength:3,maxlength: 100}
 });
 

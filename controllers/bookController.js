@@ -1,3 +1,4 @@
+//@ts-check
 var Book = require('../models/book');
 var Author = require('../models/author');
 var Genre = require('../models/genre');
@@ -29,7 +30,7 @@ exports.index = function(req, res) {
 };
 
 // Display list of all books
-exports.book_list = function(req, res) {
+exports.book_list = function(req, res,next) {
     Book.find({},'title author')
         .populate('author')
         .exec(function(err,list_book){
@@ -41,7 +42,7 @@ exports.book_list = function(req, res) {
 };
 
 // Display detail page for a specific book
-exports.book_detail = function(req, res) {
+exports.book_detail = function(req, res,next) {
     async.parallel({
         book: function(callback) {     
           Book.findById(req.params.id)
@@ -63,7 +64,7 @@ exports.book_detail = function(req, res) {
 };
 
 // Display book create form on GET
-exports.book_create_get = function(req, res) {
+exports.book_create_get = function(req, res,next) {
         //Get all authors and genres, which we can use for adding to our book.
         async.parallel({
             authors: function(callback) {
@@ -79,8 +80,6 @@ exports.book_create_get = function(req, res) {
 };
 
 // Handle book create on POST
-exports.book_create_post = function(req, res) {
-   // Handle book create on POST 
 exports.book_create_post = function(req, res, next) {
     
         req.checkBody('title', 'Title must not be empty.').notEmpty();
@@ -124,7 +123,7 @@ exports.book_create_post = function(req, res, next) {
                 if (err) { return next(err); }
                 
                 // Mark our selected genres as checked
-                for (i = 0; i < results.genres.length; i++) {
+                for (var i = 0; i < results.genres.length; i++) {
                     if (book.genre.indexOf(results.genres[i]._id) > -1) {
                         //Current genre is selected. Set "checked" flag.
                         results.genres[i].checked='true';
@@ -147,7 +146,6 @@ exports.book_create_post = function(req, res, next) {
         }
     
     };
-};
 
 // Display book delete form on GET
 exports.book_delete_get = function(req, res) {
@@ -239,7 +237,7 @@ exports.book_update_post = function(req, res, next) {
             if (err) { return next(err); }
             
             // Mark our selected genres as checked
-            for (i = 0; i < results.genres.length; i++) {
+            for (var i = 0; i < results.genres.length; i++) {
                 if (book.genre.indexOf(results.genres[i]._id) > -1) {
                     results.genres[i].checked='true';
                 }
