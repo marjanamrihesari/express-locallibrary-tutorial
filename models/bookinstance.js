@@ -23,6 +23,12 @@ BookInstanceSchema
 .get(function(){
     return moment(this.due_back).format('MMMM Do, YYYY');
 });
+// virtual for moment date
+BookInstanceSchema
+.virtual('due_back_form')
+.get(function(){
+    return moment(this.due_back).format('YYYY-MM-DD');
+});
 
 //Export Model
 module.exports=mongoose.model('BookInstance',BookInstanceSchema);
