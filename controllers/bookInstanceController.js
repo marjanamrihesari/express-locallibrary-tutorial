@@ -97,6 +97,3 @@ exports.bookinstance_update_get = function(req, res) {
 exports.bookinstance_update_post = function(req, res) {
     res.send('NOT IMPLEMENTED: BookInstance update POST');
 };
-function newFunction(res) {
-    res.send('NOT IMPLEMENTED: BookInstance create GET');
-}
