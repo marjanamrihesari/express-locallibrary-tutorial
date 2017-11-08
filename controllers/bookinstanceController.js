@@ -1,5 +1,5 @@
 var BookInstance = require('../models/bookinstance');
-
+var Book = require('../models/book');
 // Display list of all BookInstances
 exports.bookinstance_list = function(req, res, next) { 
       BookInstance.find()
@@ -37,7 +37,7 @@ exports.bookinstance_create_post = function(req, res, next) {
     
         req.checkBody('book', 'Book must be specified').notEmpty(); //We won't force Alphanumeric, because book titles might have spaces.
         req.checkBody('imprint', 'Imprint must be specified').notEmpty();
-        req.checkBody('due_back', 'Invalid date').optional({ checkFalsy: true }).isDate();
+   //     req.checkBody('due_back', 'Invalid date').optional({ checkFalsy: true }).isDate();
         
         req.sanitize('book').escape();
         req.sanitize('imprint').escape();
