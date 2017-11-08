@@ -28,15 +28,23 @@ AuthorSchema
 AuthorSchema
     .virtual('date_birth_formatted')
     .get(function(){
-        return moment(this.date_of_death).format('MMMM Do,YYYY');
+        return moment(this.date_of_birth).format('MMMM Do,YYYY');
     });
-
+AuthorSchema
+    .virtual('date_birth_form')
+    .get(function(){
+        return moment(this.date_of_birth).format('YYYY-MM-DD');
+    });
 AuthorSchema
     .virtual('date_death_formatted')
     .get(function(){
         return  moment(this.date_of_death).format('MMMM Do,YYYY');
     });
-
+AuthorSchema
+    .virtual('date_death_form')
+    .get(function(){
+        return moment(this.date_of_death).format('YYYY-MM-DD');
+    });
 AuthorSchema
     .virtual('lifespan')
     .get(function(){
